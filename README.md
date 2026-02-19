@@ -8,7 +8,7 @@
 |**Template Used**<br>Basic|
 |**Service Type**<br>None|
 |**Service URL**<br>N/A|
-|**Module Name**<br>mobileappwebcontainer|
+|**Module Name**<br>mobileappprevrep|
 |**Application Title**<br>Web container app|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
@@ -16,7 +16,7 @@
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|
 
-## mobileappwebcontainer
+## mobileappprevrep
 
 Web container app
 

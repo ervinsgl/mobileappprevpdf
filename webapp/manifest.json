@@ -1,7 +1,7 @@
 {
   "_version": "1.81.0",
   "sap.app": {
-    "id": "mobileappwebcontainer",
+    "id": "mobileappprevrep",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -49,7 +49,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "mobileappwebcontainer.i18n.i18n"
+          "bundleName": "mobileappprevrep.i18n.i18n"
         }
       }
     },
@@ -68,9 +68,9 @@
         "transition": "slide",
         "type": "View",
         "viewType": "XML",
-        "path": "mobileappwebcontainer.view",
+        "path": "mobileappprevrep.view",
         "async": true,
-        "viewPath": "mobileappwebcontainer.view"
+        "viewPath": "mobileappprevrep.view"
       },
       "routes": [
         {
@@ -89,7 +89,7 @@
       }
     },
     "rootView": {
-      "viewName": "mobileappwebcontainer.view.App",
+      "viewName": "mobileappprevrep.view.App",
       "type": "XML",
       "id": "App",
       "async": true
@@ -97,6 +97,6 @@
   },
   "sap.cloud": {
     "public": true,
-    "service": "mobileappwebcontainer"
+    "service": "mobileappprevrep"
   }
 }

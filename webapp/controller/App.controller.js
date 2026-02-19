@@ -3,7 +3,7 @@ sap.ui.define([
 ], (BaseController) => {
   "use strict";
 
-  return BaseController.extend("mobileappwebcontainer.controller.App", {
+  return BaseController.extend("mobileappprevrep.controller.App", {
       onInit() {
       }
   });
