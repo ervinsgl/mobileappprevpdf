@@ -1,0 +1,13 @@
+applications:
+  - name: mobileappwebcontainer
+    memory: 256M
+    disk_quota: 512M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: npm start
+    path: .
+    routes:
+      - route: mobileappwebcontainer-webcontainer-test-op.cfapps.eu10.hana.ondemand.com
+    services:
+      - mobileappwebcontainer-destination

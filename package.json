@@ -1,0 +1,38 @@
+{
+  "name": "mobileappwebcontainer",
+  "version": "0.0.1",
+  "description": "FSM Mobile Web Container App",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5",
+    "fsm",
+    "sap-btp"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@ui5/cli": "^4.0.33",
+    "@sap/ux-ui5-tooling": "1",
+    "ui5-task-zipper": "^3.4.x",
+    "rimraf": "^5.0.5",
+    "mbt": "^1.2.29"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "start-ui5": "fiori run --open \"test/flp.html#app-preview\"",
+    "start-local": "fiori run --config ./ui5-local.yaml --open \"test/flp.html#app-preview\"",
+    "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist",
+    "build:cf": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateCachebusterInfo",
+    "build:mta": "rimraf resources mta_archives && mbt build",
+    "deploy": "fiori cfDeploy",
+    "undeploy": "cf undeploy mobileappwebcontainer --delete-services --delete-service-keys --delete-service-brokers"
+  },
+  "sapuxLayer": "CUSTOMER_BASE"
+}
