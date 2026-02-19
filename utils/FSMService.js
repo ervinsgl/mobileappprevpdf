@@ -51,7 +51,7 @@ class FSMService {
      */
     async makeRequest(path, params = {}) {
         try {
-            const destination = await DestinationService.getDestination('FSM_S4E');
+            const destination = await DestinationService.getDestination('FSM_OAUTH_CONNECT');
             const token = await TokenCache.getToken(destination);
 
             const baseUrl = destination.destinationConfiguration.URL;
@@ -94,7 +94,7 @@ class FSMService {
      */
     async postRequest(path, data, params = {}) {
         try {
-            const destination = await DestinationService.getDestination('FSM_S4E');
+            const destination = await DestinationService.getDestination('FSM_OAUTH_CONNECT');
             const token = await TokenCache.getToken(destination);
 
             const baseUrl = destination.destinationConfiguration.URL;
@@ -137,7 +137,7 @@ class FSMService {
      */
     async patchRequest(path, data, params = {}) {
         try {
-            const destination = await DestinationService.getDestination('FSM_S4E');
+            const destination = await DestinationService.getDestination('FSM_OAUTH_CONNECT');
             const token = await TokenCache.getToken(destination);
 
             const baseUrl = destination.destinationConfiguration.URL;
@@ -183,7 +183,7 @@ class FSMService {
         try {
             if (!requests || requests.length === 0) return [];
 
-            const destination = await DestinationService.getDestination('FSM_S4E');
+            const destination = await DestinationService.getDestination('FSM_OAUTH_CONNECT');
             const token = await TokenCache.getToken(destination);
 
             const baseUrl = destination.destinationConfiguration.URL;
@@ -356,7 +356,7 @@ class FSMService {
      */
     async getActivitiesForServiceCall(serviceCallId) {
         try {
-            const destination = await DestinationService.getDestination('FSM_S4E');
+            const destination = await DestinationService.getDestination('FSM_OAUTH_CONNECT');
             const token = await TokenCache.getToken(destination);
 
             const baseUrl = destination.destinationConfiguration.URL;
@@ -383,7 +383,7 @@ class FSMService {
      * Update activity.
      */
     async updateActivity(activityId, updateData) {
-        const destination = await DestinationService.getDestination('FSM_S4E');
+        const destination = await DestinationService.getDestination('FSM_OAUTH_CONNECT');
         const token = await TokenCache.getToken(destination);
 
         const baseUrl = destination.destinationConfiguration.URL;
@@ -413,7 +413,7 @@ class FSMService {
      */
     async makeQueryRequest(query, dtos) {
         try {
-            const destination = await DestinationService.getDestination('FSM_S4E');
+            const destination = await DestinationService.getDestination('FSM_OAUTH_CONNECT');
             const token = await TokenCache.getToken(destination);
 
             const baseUrl = destination.destinationConfiguration.URL;
@@ -671,7 +671,7 @@ class FSMService {
 
     async getOrganizationLevels() {
         try {
-            const destination = await DestinationService.getDestination('FSM_S4E');
+            const destination = await DestinationService.getDestination('FSM_OAUTH_CONNECT');
             const token = await TokenCache.getToken(destination);
             const baseUrl = destination.destinationConfiguration.URL;
 
@@ -697,7 +697,7 @@ class FSMService {
     async getUserByUsername(username) {
         try {
             if (!username) return null;
-            const destination = await DestinationService.getDestination('FSM_S4E');
+            const destination = await DestinationService.getDestination('FSM_OAUTH_CONNECT');
             const token = await TokenCache.getToken(destination);
             const baseUrl = destination.destinationConfiguration.URL;
             const account = destination.destinationConfiguration.account || this.config.account;
