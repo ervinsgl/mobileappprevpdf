@@ -34,6 +34,11 @@ sap.ui.define([
                     return response.json();
                 })
                 .then(context => {
+                    // Set UI5 language from FSM context
+                    if (context.language) {
+                        sap.ui.getCore().getConfiguration().setLanguage(context.language);
+                    }
+
                     oModel.setProperty("/busy", false);
 
                     if (context.cloudId) {
