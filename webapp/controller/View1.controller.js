@@ -9,27 +9,18 @@ sap.ui.define([
         onInit() {
             this.getView().setModel(new JSONModel({
                 busy: true,
-                contextLoaded: false,
                 showError: false,
-                context: {}
+                reportUrl: null,
+                reportLoading: false,
+                reportError: false
             }), "view");
 
             this._loadContext();
         },
 
-        /**
-         * Fetch the FSM Mobile session context from the backend.
-         *
-         * The backend stores one context slot per user+object (session key)
-         * and passes the key as a URL query param on redirect.
-         * We read it from the current URL and send it back on the GET request
-         * so each user retrieves exactly their own context.
-         */
         _loadContext() {
             const oModel = this.getView().getModel("view");
 
-            // Read session key injected by the server redirect:
-            // POST /web-container-access-point → redirect /?session=<key>
             const params = new URLSearchParams(window.location.search);
             const sessionKey = params.get("session");
 
@@ -39,28 +30,50 @@ sap.ui.define([
 
             fetch(url)
                 .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
-                    }
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
                     return response.json();
                 })
                 .then(context => {
-                    oModel.setProperty("/context", context);
-                    oModel.setProperty("/contextLoaded", true);
                     oModel.setProperty("/busy", false);
 
-                    console.log("FSM context loaded:", {
-                        user: context.userName,
-                        company: context.companyName,
-                        objectType: context.objectType,
-                        session: sessionKey
-                    });
+                    if (context.cloudId) {
+                        this._loadUdoValues(context.cloudId);
+                    }
                 })
-                .catch(error => {
-                    console.warn("FSM context not available:", error.message);
+                .catch(() => {
                     oModel.setProperty("/showError", true);
                     oModel.setProperty("/busy", false);
                 });
+        },
+
+        _loadUdoValues(cloudId) {
+            const oModel = this.getView().getModel("view");
+            oModel.setProperty("/reportLoading", true);
+
+            fetch(`/api/udo-values?cloudId=${encodeURIComponent(cloudId)}`)
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.checklistInstance && data.preliminaryReportTemplate) {
+                        this._buildReport(data.checklistInstance, data.preliminaryReportTemplate);
+                    } else {
+                        oModel.setProperty("/reportError", true);
+                        oModel.setProperty("/reportLoading", false);
+                    }
+                })
+                .catch(() => {
+                    oModel.setProperty("/reportError", true);
+                    oModel.setProperty("/reportLoading", false);
+                });
+        },
+
+        _buildReport(objectId, reportTemplateId) {
+            const oModel = this.getView().getModel("view");
+            const reportUrl = `/api/build-report?objectId=${encodeURIComponent(objectId)}&reportTemplate=${encodeURIComponent(reportTemplateId)}&language=de`;
+            oModel.setProperty("/reportUrl", reportUrl);
+            oModel.setProperty("/reportLoading", false);
         }
 
     });

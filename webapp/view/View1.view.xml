@@ -9,21 +9,9 @@
     <Page
         id="page"
         showNavButton="false"
-        showHeader="true"
+        showHeader="false"
         busy="{view>/busy}"
         busyIndicatorDelay="0">
-
-        <customHeader>
-            <OverflowToolbar design="Info">
-                <core:Icon src="sap-icon://connected" class="sapUiTinyMarginEnd" />
-                <Title text="FSM Web Container" level="H4" />
-                <ToolbarSpacer />
-                <ObjectStatus
-                    text="{view>/context/objectType}"
-                    state="Information"
-                    visible="{view>/contextLoaded}" />
-            </OverflowToolbar>
-        </customHeader>
 
         <content>
 
@@ -31,59 +19,32 @@
             <IllustratedMessage
                 visible="{view>/showError}"
                 illustrationType="sapIllus-NoMail"
-                title="Open from FSM Mobile"
-                description="This app must be opened from the FSM Mobile app via a configured Web Container. Configure the web container URL in FSM Admin → Company → Web Containers and assign it to the desired object type." />
+                title="{i18n>errorTitle}"
+                description="{i18n>errorDescription}" />
 
-            <!-- LOADED: Context received from FSM Mobile POST -->
-            <layout:VerticalLayout
-                visible="{view>/contextLoaded}"
-                width="100%"
-                class="sapUiContentPadding">
+            <!-- Report loading indicator -->
+            <BusyIndicator
+                visible="{view>/reportLoading}"
+                text="{i18n>reportLoading}"
+                class="sapUiMediumMarginTop" />
 
-                <List
-                    id="contextList"
-                    headerText="Session Context"
-                    mode="None"
-                    showSeparators="Inner">
+            <!-- Report build error -->
+            <MessageStrip
+                visible="{view>/reportError}"
+                text="{i18n>reportError}"
+                type="Error"
+                showIcon="true"
+                class="sapUiSmallMarginTop" />
 
-                    <ObjectListItem
-                        title="{view>/context/userName}"
-                        intro="User"
-                        icon="sap-icon://account" />
-
-                    <ObjectListItem
-                        title="{view>/context/companyName}"
-                        intro="Company"
-                        icon="sap-icon://factory" />
-
-                    <ObjectListItem
-                        title="{view>/context/cloudAccount}"
-                        intro="Cloud Account"
-                        icon="sap-icon://cloud" />
-
-                    <ObjectListItem
-                        title="{view>/context/cloudId}"
-                        intro="Cloud ID"
-                        icon="sap-icon://key-user-settings" />
-
-                    <ObjectListItem
-                        title="{view>/context/objectType}"
-                        intro="Object Type"
-                        icon="sap-icon://activity-2" />
-
-                    <ObjectListItem
-                        title="{view>/context/language}"
-                        intro="Language"
-                        icon="sap-icon://globe" />
-
-                    <ObjectListItem
-                        title="{view>/context/dataCloudFullQualifiedDomainName}"
-                        intro="FSM Cloud Domain"
-                        icon="sap-icon://world" />
-
-                </List>
-
-            </layout:VerticalLayout>
+            <!-- PDF Preview -->
+            <PDFViewer
+                id="pdfViewer"
+                source="{view>/reportUrl}"
+                title="{i18n>reportTitle}"
+                visible="{= !!${view>/reportUrl}}"
+                isTrustedSource="true"
+                height="100%"
+                showDownloadButton="true" />
 
         </content>
 

@@ -15,6 +15,7 @@
 
 const express = require('express');
 const path = require('path');
+const FSMService = require('./utils/FSMService');
 
 const app = express();
 
@@ -126,6 +127,63 @@ app.get('/web-container-context', (req, res) => {
     // Return context without the internal timestamp field
     const { _timestamp, ...contextData } = context;
     return res.json(contextData);
+});
+
+// ===========================
+// FSM API ENDPOINTS
+// ===========================
+
+/**
+ * GET /api/udo-values?cloudId=<id>
+ *
+ * Queries FSM UdoValue API using the cloudId (upper-cased) and returns
+ * the checklist instance and preliminary report template values.
+ */
+app.get('/api/udo-values', async (req, res) => {
+    const cloudId = req.query.cloudId;
+
+    if (!cloudId) {
+        return res.status(400).json({ message: 'cloudId query parameter is required.' });
+    }
+
+    try {
+        const result = await FSMService.getUdoValues(cloudId);
+        return res.json(result);
+    } catch (error) {
+        console.error('UdoValue endpoint error:', error.message);
+        return res.status(500).json({ message: 'Failed to fetch UdoValue data.' });
+    }
+});
+
+/**
+ * GET /api/build-report?objectId=<id>&reportTemplate=<id>&language=<lang>
+ *
+ * Builds a report via FSM Reporting API and returns the PDF binary.
+ * - objectId: Checklist instance ID (z_Linker_Checklist_Instance)
+ * - reportTemplate: Report template UUID (z_Linker_PreliminaryReportTemplate)
+ * - language: Report language (default: 'de')
+ */
+app.get('/api/build-report', async (req, res) => {
+    const { objectId, reportTemplate, language } = req.query;
+
+    if (!objectId || !reportTemplate) {
+        return res.status(400).json({ message: 'objectId and reportTemplate query parameters are required.' });
+    }
+
+    try {
+        const pdfBuffer = await FSMService.buildReport(objectId, reportTemplate, language || 'de');
+
+        res.set({
+            'Content-Type': 'application/pdf',
+            'Content-Length': pdfBuffer.length,
+            'Content-Disposition': 'inline; filename="report.pdf"'
+        });
+
+        return res.send(pdfBuffer);
+    } catch (error) {
+        console.error('Build report endpoint error:', error.message);
+        return res.status(500).json({ message: error.message || 'Failed to build report.' });
+    }
 });
 
 // ===========================
