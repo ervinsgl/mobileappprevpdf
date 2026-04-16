@@ -156,7 +156,7 @@ This application provides a seamless preliminary report preview experience withi
 
 | Service | Instance Name | Purpose |
 |---------|---------------|---------|
-| **Destination Service** | `mobileappprevrep-destination` | FSM API connectivity |
+| **Destination Service** | `mobileappprevpdf-destination` | FSM API connectivity |
 
 ### Destination Configuration (FSM_OAUTH_CONNECT):
 
@@ -197,7 +197,7 @@ The destination `FSM_OAUTH_CONNECT` must be configured in BTP Cockpit with:
 ### 1. Clone & Install
 ```bash
 git clone <repository-url>
-cd mobileappprevrep
+cd mobileappprevpdf
 npm install
 ```
 
@@ -233,7 +233,7 @@ Additional Properties:
 
 ### 4. Create Destination Service Instance
 ```bash
-cf create-service destination lite mobileappprevrep-destination
+cf create-service destination lite mobileappprevpdf-destination
 ```
 
 ### 5. Deploy to Cloud Foundry
@@ -243,10 +243,10 @@ cf push
 
 ### 6. Get Application URL
 ```bash
-cf app mobileappprevrep
+cf app mobileappprevpdf
 ```
 
-Copy the URL (e.g., `https://mobileappprevrep-xxx.cfapps.eu10.hana.ondemand.com`)
+Copy the URL (e.g., `https://mobileappprevpdf-xxx.cfapps.eu10.hana.ondemand.com`)
 
 ---
 
@@ -260,7 +260,7 @@ Navigate to: **FSM Admin → Company → Web Containers**
 | Field | Value |
 |-------|-------|
 | **Name** | `TUVNMobileAppPreviewPDF` |
-| **URL** | `https://mobileappprevrep-xxx.cfapps.eu10.hana.ondemand.com/web-container-access-point` |
+| **URL** | `https://mobileappprevpdf-xxx.cfapps.eu10.hana.ondemand.com/web-container-access-point` |
 | **Object Types** | `ChecklistInstance` |
 | **Active** | ✓ Checked |
 
@@ -371,7 +371,7 @@ When opened from FSM Mobile, the web container automatically POSTs context data:
 
 ## 📁 Project Structure
 ```
-mobileappprevrep/
+mobileappprevpdf/
 │
 ├── # ─────────── ROOT LEVEL ───────────
 ├── index.js                             # Express server: context storage, API endpoints
@@ -474,21 +474,21 @@ webapp/
 | Issue | Cause | Solution |
 |-------|-------|----------|
 | "Open from FSM Mobile" message | App opened directly in browser | Open from FSM Mobile via configured Web Container |
-| "Could not build the report" | UdoValue lookup or report build failed | Check server logs via `cf logs mobileappprevrep --recent` |
+| "Could not build the report" | UdoValue lookup or report build failed | Check server logs via `cf logs mobileappprevpdf --recent` |
 | PDF shows "The PDF cannot be displayed" | `isTrustedSource` not set | Ensure `isTrustedSource="true"` on `PDFViewer` (UI5 1.120.7+ breaking change) |
 | CA-207: Offline report error | Report template configured as offline | Set `CoreSystems.Checklist.GenerateOfflineChecklistReport` to `false` in FSM Company Settings |
 | CA-31: Resource not found | Report template missing subreport/resource files | Upload all referenced resources alongside the template in FSM |
 | CA-152: No Udf into UdfMeta | Report template references missing custom field | Create the missing UDF on the ChecklistInstance object type in FSM Admin |
 | No UdoValue results | cloudId not matching any Linker_Object entries | Verify the checklist instance has a linked Linker_Object UdoValue with matching Instance1/Instance2 |
 | 401/403 on API calls | OAuth token expired or invalid credentials | Check destination configuration in BTP Cockpit |
-| Destination service not bound | VCAP_SERVICES missing destination | Run `cf bind-service mobileappprevrep mobileappprevrep-destination` and restage |
+| Destination service not bound | VCAP_SERVICES missing destination | Run `cf bind-service mobileappprevpdf mobileappprevpdf-destination` and restage |
 | Report takes long to load | Complex report template | FSM has a 5-minute / 1000-page limit for report generation |
 
 ### Server Logs
 
 View server-side logs via Cloud Foundry:
 ```bash
-cf logs mobileappprevrep --recent
+cf logs mobileappprevpdf --recent
 ```
 
 **Key log patterns:**
@@ -507,7 +507,7 @@ cf logs mobileappprevrep --recent
 |                                    |                                                          |
 |------------------------------------|----------------------------------------------------------|
 | **App Name**                       | Preliminary Report Preview                               |
-| **Module Name**                    | mobileappprevrep                                         |
+| **Module Name**                    | mobileappprevpdf                                         |
 | **Framework**                      | SAP UI5 (Fiori) + Node.js Express                        |
 | **UI5 Theme**                      | sap_horizon                                              |
 | **UI5 Version**                    | 1.144.1 (loaded from CDN)                                |

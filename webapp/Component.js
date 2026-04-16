@@ -1,10 +1,10 @@
 sap.ui.define([
     "sap/ui/core/UIComponent",
-    "mobileappprevrep/model/models"
+    "mobileappprevpdf/model/models"
 ], (UIComponent, models) => {
     "use strict";
 
-    return UIComponent.extend("mobileappprevrep.Component", {
+    return UIComponent.extend("mobileappprevpdf.Component", {
         metadata: {
             manifest: "json",
             interfaces: [

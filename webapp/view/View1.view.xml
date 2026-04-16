@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="mobileappprevrep.controller.View1"
+    controllerName="mobileappprevpdf.controller.View1"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:layout="sap.ui.layout"

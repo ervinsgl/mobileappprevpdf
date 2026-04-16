@@ -1,7 +1,7 @@
 {
   "_version": "1.76.0",
   "sap.app": {
-    "id": "mobileappprevrep",
+    "id": "mobileappprevpdf",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -49,7 +49,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "mobileappprevrep.i18n.i18n",
+          "bundleName": "mobileappprevpdf.i18n.i18n",
           "supportedLocales": ["", "de"],
           "fallbackLocale": ""
         }
@@ -70,9 +70,9 @@
         "transition": "slide",
         "type": "View",
         "viewType": "XML",
-        "path": "mobileappprevrep.view",
+        "path": "mobileappprevpdf.view",
         "async": true,
-        "viewPath": "mobileappprevrep.view"
+        "viewPath": "mobileappprevpdf.view"
       },
       "routes": [
         {
@@ -91,7 +91,7 @@
       }
     },
     "rootView": {
-      "viewName": "mobileappprevrep.view.App",
+      "viewName": "mobileappprevpdf.view.App",
       "type": "XML",
       "id": "App",
       "async": true
@@ -99,6 +99,6 @@
   },
   "sap.cloud": {
     "public": true,
-    "service": "mobileappprevrep"
+    "service": "mobileappprevpdf"
   }
 }

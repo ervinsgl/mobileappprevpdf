@@ -1,4 +1,4 @@
-<mvc:View controllerName="mobileappprevrep.controller.App"
+<mvc:View controllerName="mobileappprevpdf.controller.App"
     displayBlock="true"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">

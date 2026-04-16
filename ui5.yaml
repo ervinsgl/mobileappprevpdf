@@ -2,7 +2,7 @@
 
 specVersion: "4.0"
 metadata:
-  name: mobileappprevrep
+  name: mobileappprevpdf
 type: application
 server:
   customMiddleware:

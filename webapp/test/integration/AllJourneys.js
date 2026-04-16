@@ -7,7 +7,7 @@ sap.ui.define([
 
 	Opa5.extendConfig({
 		arrangements: new Startup(),
-		viewNamespace: "mobileappprevrep.view.",
+		viewNamespace: "mobileappprevpdf.view.",
 		autoWait: true
 	});
 });
