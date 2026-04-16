@@ -8,6 +8,6 @@ applications:
     command: npm start
     path: .
     routes:
-      - route: mobileappprevpdf-webcontainer-test-op.cfapps.eu10.hana.ondemand.com
+      - route: mobileappprevpdf-webcontainer-test-op.cfapps.eu10-004.hana.ondemand.com
     services:
       - mobileappprevpdf-destination
